@@ -1,4 +1,5 @@
-//.then(response=>response.json())
+const likeIcon = "✧";
+const likedIcon = "✦";
 
 const wrapper = document.createElement("div");
 wrapper.classList.add("wrapper");
@@ -19,34 +20,29 @@ fetch("data/destinations.json")
       const h4 = document.createElement("h4");
       h4.innerText = data.destinations[i].subtitle;
       const div = document.createElement("div");
-      div.id = 'appartment' + data.destinations[i].id;
-      div.dataset.favorite = localStorage.getItem('appartment' + data.destinations[i].id) || 0;
+      div.id = "appartment" + data.destinations[i].id;
       div.classList.add("appartment");
-      const likeBtn = document.createElement('span')
-      likeBtn.classList.add('like-btn')
-      likeBtn.classList.add('material-symbols-outlined')
-      likeBtn.innerText = 'favorite'
-      likeBtn.style.fontVariationSettings = `'FILL' ${localStorage.getItem('appartment' + data.destinations[i].id) || 0}, 'wght' 100, 'GRAD' 200, 'opsz' 48`;
-      //likeBtn.innerText = localStorage.getItem('appartment' + data.destinations[i].id) || likeIcon;
-      likeBtn.addEventListener('click',likeBtnFunc)
-      div.append(img, h3, h4,likeBtn);
+      const likeBtn = document.createElement("span");
+      likeBtn.classList.add("like-btn");
+      likeBtn.innerText =
+        localStorage.getItem("appartment" + data.destinations[i].id) ||
+        likeIcon;
+      likeBtn.addEventListener("click", likeBtnFunc);
+      div.append(img, h3, h4, likeBtn);
       wrapper.append(div);
     }
   })
   .catch((error) => console.error(error));
 
-  function likeBtnFunc(){
-    
-    if(localStorage.getItem(this.parentNode.id) == null || localStorage.getItem(this.parentNode.id) == 0){
-      //this.innerText = likedIcon
-      localStorage.setItem(this.parentNode.id,1)
-      this.style.fontVariationSettings = "'FILL' 1, 'wght' 100, 'GRAD' 200, 'opsz' 48";
-    }
-    else{
-      //this.innerText = likeIcon
-      localStorage.setItem(this.parentNode.id,0)
-      this.style.fontVariationSettings = "'FILL' 0, 'wght' 100, 'GRAD' 200, 'opsz' 48";
-    }
-
+function likeBtnFunc() {
+  if (
+    localStorage.getItem(this.parentNode.id) == null ||
+    localStorage.getItem(this.parentNode.id) == likeIcon
+  ) {
+    localStorage.setItem(this.parentNode.id, likedIcon);
+    this.innerText = likedIcon;
+  } else {
+    localStorage.setItem(this.parentNode.id, likeIcon);
+    this.innerText = likeIcon;
   }
-
+}

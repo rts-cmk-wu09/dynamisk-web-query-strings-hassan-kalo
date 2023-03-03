@@ -1,6 +1,5 @@
-
-    const likeIcon = '♡'
-    const likedIcon = '♥️'
+    const likeIcon = '✧'
+    const likedIcon = '✦'
     const wrapper = document.createElement("div");
     wrapper.classList.add("wrapper");
     document.body.append(wrapper);
@@ -24,7 +23,6 @@
         p.innerText = data.text;
         const div = document.createElement("div");
         div.id = 'appartment' + urlParam_id;
-        div.dataset.favorite = localStorage.getItem('appartment' + urlParam_id) || likeBtn;
         
         div.classList.add("appartment");
         const ul = document.createElement("ul");
@@ -39,16 +37,18 @@
         likeBtn.innerText = localStorage.getItem('appartment' + urlParam_id) || likeBtn;
         likeBtn.addEventListener('click',likeBtnFunc)
         wrapper.append(div);
+        div.dataset.favorite = localStorage.getItem('appartment' + urlParam_id) || likeBtn;
+
       });
 
       function likeBtnFunc(){
         console.log(this.parentNode.id)
         if(localStorage.getItem(this.parentNode.id) == null || localStorage.getItem(this.parentNode.id) == likeIcon){
-          this.innerText = likedIcon
           localStorage.setItem(this.parentNode.id,likedIcon)
+          this.innerText = likedIcon
         }
         else{
-          this.innerText = likeIcon
           localStorage.setItem(this.parentNode.id,likeIcon)
+          this.innerText = likeIcon
         }
       }
